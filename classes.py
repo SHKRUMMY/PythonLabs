@@ -68,11 +68,19 @@ class PowerSource(Source):
         self.power = power
 
 
+    def make_noise(self):
+        return super().make_noise()    
+
+
 class CurrentSource(Source):
     current = 0
     def __init__(self, voltage, resistance, price, name, current, direction=0, ) -> None:
         super().__init__(voltage, resistance, price, name, direction)
         self.current = current
+
+
+    def make_noise(self):
+        return super().make_noise()
 
 class OperativeAmplifier(AnalogDevice):
     amplify_rate = 1.0
@@ -88,9 +96,23 @@ class Decoder(DigitalDevice):
         self.efficiency_in_chars_per_second = efficiency_in_chars_per_second
 
 class Adder(ImpulseDevice):
-    is_binar = True
+    is_binary = True
 
-    def __init__(self, voltage, resistance, price, name, impulse, is_binar = True) -> None:
+    def __init__(self, voltage, resistance, price, name, impulse, is_binary = True) -> None:
         super().__init__(voltage, resistance, price, name, impulse)
-        self.is_binar = is_binar
+        self.is_binary = is_binary
         
+
+
+crr_src = CurrentSource(10, 5, 100, "Crr_Source1", 1, 0)
+pwr_src = PowerSource(14, 0.5, 125, "Pwr_Source1", 22, 1)
+amplifier= OperativeAmplifier(5, 1, 15, "Amplifier1", 4, 1.5)
+decoder = Decoder(10, 2, 2, "Decoder1", 2001, 100)
+adder = Adder(100, 23, 400, "Adder1", 1, 0)
+     
+crr_src.make_noise()
+pwr_src.make_noise()
+amplifier.make_noise()
+
+
+## in
